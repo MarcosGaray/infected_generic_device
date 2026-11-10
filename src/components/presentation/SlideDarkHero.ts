@@ -12,14 +12,14 @@ export function renderSlideDarkHero(slide: SlideDefinition): string {
     )
     .join('');
 
-  const titleSize =
-    slide.template === 'closing-thanks' ? '62px' : slide.index === 0 ? '54px' : '46px';
+  const titleClass =
+    slide.template === 'closing-thanks' ? 'is-closing' : slide.index === 0 ? 'is-cover' : 'is-section';
 
   return `
     <div class="dark-hero-grid">
       <div>
         ${slide.yellowTag ? `<span class="yellow-tag-solid">${slide.yellowTag}</span>` : ''}
-        <h1 class="hero-big-title" style="font-size:${titleSize};">${slide.title}</h1>
+        <h1 class="hero-big-title ${titleClass}">${slide.title}</h1>
         <p class="hero-Accent-subtitle">${slide.subtitle}</p>
         <div class="dark-glass-box">
           <ul class="dark-glass-list">

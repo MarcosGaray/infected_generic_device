@@ -82,7 +82,7 @@ export function renderHubView(stage: HTMLElement, onSelectMode: (mode: AppMode) 
         <footer class="hub-footer">
           <span><strong>Laboratorio GPON</strong> — recurso educativo</span>
           <span>Contenido ilustrativo · Sin datos reales</span>
-          <span>Atajos: <strong>Flechas / PageDown</strong> avanzar · <strong>F11</strong> pantalla completa · <strong>Home</strong> guía</span>
+          <span class="hub-footer-shortcuts">Atajos: <strong>Flechas / PageDown</strong> avanzar · <strong>F11</strong> pantalla completa · <strong>Home</strong> guía</span>
         </footer>
       </div>
     </div>
@@ -91,7 +91,12 @@ export function renderHubView(stage: HTMLElement, onSelectMode: (mode: AppMode) 
   const viewportEl = stage.querySelector('#hub-viewport-box') as HTMLElement | null;
   const canvasEl = stage.querySelector('#hub-scaled-canvas') as HTMLElement | null;
   if (viewportEl && canvasEl) {
+    const compactQuery = window.matchMedia('(max-width: 1280px)');
     const updateScale = () => {
+      if (compactQuery.matches) {
+        canvasEl.style.transform = '';
+        return;
+      }
       const vw = viewportEl.clientWidth;
       const vh = viewportEl.clientHeight;
       if (vw > 0 && vh > 0) {

@@ -1,5 +1,17 @@
 /* Estilos del diagrama de flujo — flujo general */
 
+.flowchart-standalone {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  padding: clamp(8px, 1.6vw, 20px);
+}
+
+.flowchart-standalone .flowchart-layout {
+  width: 100%;
+  height: 100%;
+}
+
 .flowchart-layout {
   flex: 1;
   display: grid;
@@ -24,4 +36,325 @@
 .flowchart-svg {
   width: 100%;
   height: 100%;
+}
+
+/* Píldoras superpuestas del diagrama horizontal */
+.flow-top-pill {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  pointer-events: none;
+  max-width: calc(100% - 32px);
+  flex-wrap: wrap;
+}
+
+.flow-badge {
+  background: var(--brand-yellow);
+  color: var(--brand-navy-dark);
+  font-weight: 900;
+  font-size: 11.5px;
+  letter-spacing: 0.6px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.flow-title-pill {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--brand-white);
+  background: rgba(15, 39, 71, 0.9);
+  padding: 5px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--brand-cyan);
+}
+
+.flow-back-guide-btn {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+}
+
+.flow-description-pill {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: min(720px, 58%);
+  background: rgba(5, 11, 22, 0.72);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 999px;
+  padding: 6px 16px;
+  color: #cbd5e1;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Versión apilada (tablets y celulares)
+--------------------------------------------------------------------------- */
+.flowchart-canvas-box.is-compact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: clamp(12px, 3vw, 22px);
+  overscroll-behavior: contain;
+}
+
+.flow-compact {
+  width: 100%;
+  max-width: 620px;
+  margin-block: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.flow-compact-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.flow-compact-header h2 {
+  color: var(--brand-white);
+  font-size: clamp(19px, 3.4vw, 26px);
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.flow-compact-header p {
+  color: #cbd5e1;
+  font-size: clamp(12.5px, 1.8vw, 14.5px);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.flow-compact-track {
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-compact-node {
+  background: rgba(15, 39, 71, 0.88);
+  border: 1.5px solid var(--brand-cyan);
+  border-left-width: 6px;
+  border-radius: 12px;
+  padding: 12px 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+}
+
+.flow-compact-node.cat-support {
+  border-color: var(--brand-yellow);
+}
+
+.flow-compact-node.cat-close {
+  border-color: var(--brand-cyan);
+}
+
+.flow-compact-node.cat-block {
+  border-color: var(--brand-orange);
+}
+
+.flow-compact-node:not(.is-active) {
+  opacity: 0.45;
+}
+
+.flow-compact-step {
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--brand-yellow);
+  margin-bottom: 3px;
+}
+
+.flow-compact-node h3 {
+  color: var(--brand-white);
+  font-size: clamp(15.5px, 2.6vw, 18px);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.flow-compact-sub {
+  color: var(--brand-cyan);
+  font-size: clamp(11.5px, 1.8vw, 13px);
+  font-weight: 700;
+  margin-top: 2px;
+}
+
+.flow-compact-detail {
+  color: #cbd5e1;
+  font-size: clamp(11.5px, 1.9vw, 13.5px);
+  font-weight: 500;
+  line-height: 1.45;
+  margin-top: 6px;
+}
+
+.flow-compact-arrow {
+  position: relative;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flow-compact-arrow::before {
+  content: '';
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--brand-cyan), var(--brand-yellow));
+}
+
+.flow-compact-arrow::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-top-color: var(--brand-yellow);
+}
+
+.flow-compact-back {
+  align-self: flex-start;
+  margin-top: 2px;
+  min-height: 40px;
+}
+
+@media (max-width: 700px) {
+  .flowchart-standalone {
+    padding: 8px;
+  }
+
+  .flowchart-canvas-box {
+    border-radius: 12px;
+  }
+
+  .flow-compact {
+    gap: 12px;
+  }
+
+  .flow-compact-node {
+    padding: 11px 12px;
+  }
+
+  .flow-compact-arrow {
+    height: 20px;
+  }
+
+  .flow-compact-header h2 {
+    font-size: 19px;
+  }
+
+  .flow-compact-header p {
+    font-size: 12.5px;
+  }
+}
+
+@media (max-width: 420px) {
+  .flow-compact-header h2 {
+    font-size: 17.5px;
+  }
+
+  .flow-compact-node h3 {
+    font-size: 15px;
+  }
+
+  .flow-compact-detail {
+    font-size: 11.5px;
+  }
+
+  .flow-compact-back {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Tablets y celulares en horizontal: flujo en tres columnas */
+@media (max-width: 1100px) and (max-height: 560px) {
+  .flow-compact {
+    max-width: 100%;
+    gap: 8px;
+  }
+
+  .flow-compact-header {
+    gap: 2px;
+  }
+
+  .flow-compact-header h2 {
+    font-size: 18px;
+  }
+
+  .flow-compact-header p {
+    font-size: 11.5px;
+    line-height: 1.35;
+  }
+
+  .flow-compact-track {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .flow-compact-node {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    border-left-width: 4px;
+  }
+
+  .flow-compact-node h3 {
+    font-size: 14px;
+  }
+
+  .flow-compact-sub {
+    font-size: 10.5px;
+  }
+
+  .flow-compact-detail {
+    font-size: 10.5px;
+    line-height: 1.35;
+    margin-top: 4px;
+  }
+
+  .flow-compact-arrow {
+    width: 18px;
+    height: auto;
+    align-self: center;
+    flex: 0 0 18px;
+  }
+
+  .flow-compact-arrow::before {
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--brand-cyan), var(--brand-yellow));
+  }
+
+  .flow-compact-arrow::after {
+    top: 50%;
+    right: 0;
+    bottom: auto;
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+    border-top-color: transparent;
+    border-left-color: var(--brand-yellow);
+  }
+
+  .flow-compact-back {
+    align-self: flex-start;
+    margin-top: 0;
+    min-height: 32px;
+  }
 }

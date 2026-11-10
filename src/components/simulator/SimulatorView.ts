@@ -25,6 +25,7 @@ export interface Simulation3DController {
 
 export function mountSimulation3D(container: HTMLElement): Simulation3DController {
   const initialStep = GUIDED_SIM_STEPS[0];
+  const startCollapsed = window.innerHeight < 700 || window.innerWidth < 360;
   const state: SimulationState = {
     ponDensity: initialStep.ponDensity,
     infectedCount: initialStep.infectedCount,
@@ -34,7 +35,7 @@ export function mountSimulation3D(container: HTMLElement): Simulation3DControlle
     tvBoxReplaced: initialStep.tvBoxReplaced,
     hardResetCountdown: 0,
     tvBoxSwapAnim: 0,
-    bannerCollapsed: false,
+    bannerCollapsed: startCollapsed,
     guidedStepIdx: 0,
     cameraPreset: initialStep.camera,
     eventBanner: {
@@ -361,7 +362,16 @@ export function mountSimulation3D(container: HTMLElement): Simulation3DControlle
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     renderer.setSize(w, h);
+    camDirector.setAspect(camera.aspect);
+
+    // En horizontal con poca altura, el cartel plegado deja ver mejor la escena.
+    if (h < 500 && !state.bannerCollapsed) {
+      state.bannerCollapsed = true;
+      syncUi(false);
+    }
   };
+  const resizeObserver = new ResizeObserver(onResize);
+  resizeObserver.observe(canvasHost);
   window.addEventListener('resize', onResize);
   setTimeout(onResize, 0);
 
@@ -422,6 +432,7 @@ export function mountSimulation3D(container: HTMLElement): Simulation3DControlle
     destroy() {
       clearScheduledCamera();
       if (animId !== null) cancelAnimationFrame(animId);
+      resizeObserver.disconnect();
       window.removeEventListener('resize', onResize);
       camDirector.dispose();
       renderer.dispose();

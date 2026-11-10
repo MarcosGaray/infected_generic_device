@@ -23,67 +23,65 @@ export function renderSimControlDock(
   const isPortBlocked = state.lanPortDisabled || state.macBlacklistActive;
 
   dockEl.innerHTML = `
-    <div class="sims-dock-section">
-      <button class="sims-btn" id="sim-prev-step" title="Escena Anterior">◂</button>
-      <span class="sims-step-counter">
-        Escena ${state.guidedStepIdx + 1}/${GUIDED_SIM_STEPS.length}
-      </span>
-      <button class="sims-btn primary" id="sim-next-step" title="Siguiente Escena">Siguiente ▸</button>
+    <div class="sims-dock-scene-row">
+      <div class="sims-scene-controls">
+        <button type="button" class="sims-btn sims-step-btn" id="sim-prev-step" title="Escena anterior" aria-label="Escena anterior">◂</button>
+        <span class="sims-step-counter">Escena ${state.guidedStepIdx + 1}/${GUIDED_SIM_STEPS.length}</span>
+        <button type="button" class="sims-btn primary" id="sim-next-step" title="Siguiente escena">Siguiente ▸</button>
+      </div>
 
-      <div class="sims-camera-pills">
-        <button class="sims-cam-btn ${state.cameraPreset === 'sims-room' ? 'active' : ''}" data-cam="sims-room">
+      <div class="sims-camera-pills" aria-label="Vistas de cámara">
+        <button type="button" class="sims-cam-btn ${state.cameraPreset === 'sims-room' ? 'active' : ''}" data-cam="sims-room">
           Casa
         </button>
-        <button class="sims-cam-btn ${state.cameraPreset === 'devices-closeup' ? 'active' : ''}" data-cam="devices-closeup">
+        <button type="button" class="sims-cam-btn ${state.cameraPreset === 'devices-closeup' ? 'active' : ''}" data-cam="devices-closeup">
           Dispositivos
         </button>
-        <button class="sims-cam-btn ${state.cameraPreset === 'onu-closeup' ? 'active' : ''}" data-cam="onu-closeup">
+        <button type="button" class="sims-cam-btn ${state.cameraPreset === 'onu-closeup' ? 'active' : ''}" data-cam="onu-closeup">
           ONU
         </button>
-        <button class="sims-cam-btn ${state.cameraPreset === 'neighborhood' ? 'active' : ''}" data-cam="neighborhood">
+        <button type="button" class="sims-cam-btn ${state.cameraPreset === 'neighborhood' ? 'active' : ''}" data-cam="neighborhood">
           Barrio GPON
         </button>
-        <button class="sims-cam-btn ${state.cameraPreset === 'overview' ? 'active' : ''}" data-cam="overview">
-          Red Total
+        <button type="button" class="sims-cam-btn ${state.cameraPreset === 'overview' ? 'active' : ''}" data-cam="overview">
+          Red total
         </button>
       </div>
     </div>
 
     <div class="sims-dock-actions">
       <div class="sims-actions-row">
-        <button class="sims-btn ${isInfectedActive && !isPortBlocked ? 'active-danger' : ''}" id="act-infect">
-          ${isInfectedActive ? 'TV Box infectado' : 'Activar malware TV Box'}
+        <button type="button" class="sims-btn ${isInfectedActive && !isPortBlocked ? 'active-danger' : ''}" id="act-infect">
+          ${isInfectedActive ? 'Malware activo' : 'Activar malware'}
         </button>
 
-        <button class="sims-btn ${state.hardResetCountdown > 0 ? 'active-warning' : ''}" id="act-reset">
-          ${state.hardResetCountdown > 0 ? 'Reiniciando...' : 'Probar reset de fábrica'}
+        <button type="button" class="sims-btn ${state.hardResetCountdown > 0 ? 'active-warning' : ''}" id="act-reset">
+          ${state.hardResetCountdown > 0 ? 'Reiniciando…' : 'Reset de fábrica'}
         </button>
 
-        <button class="sims-btn ${state.guestVlanActive ? 'active-warning' : ''}" id="act-guest">
-          Red Invitados (LAN)
-        </button>
-      </div>
-
-      <div class="sims-actions-row">
-        <button class="sims-btn ${isPortBlocked ? 'active-success' : ''}" id="act-port-block">
-          Bloquear en ONU (Red)
+        <button type="button" class="sims-btn ${state.guestVlanActive ? 'active-warning' : ''}" id="act-guest">
+          Red de invitados
         </button>
 
-        <button class="sims-btn ${state.tvBoxReplaced ? 'active-success' : ''}" id="act-certified">
-          Equipo Certificado
+        <button type="button" class="sims-btn ${isPortBlocked ? 'active-success' : ''}" id="act-port-block">
+          Bloquear en ONU
+        </button>
+
+        <button type="button" class="sims-btn ${state.tvBoxReplaced ? 'active-success' : ''}" id="act-certified">
+          Equipo certificado
         </button>
       </div>
     </div>
 
     <div class="sims-sliders-compact">
-      <div class="sims-slider-item" id="wrap-pon-density" title="Use la ruedita del mouse o arrastre para cambiar Casas PON">
+      <div class="sims-slider-item" id="wrap-pon-density" title="Arrastre para cambiar la cantidad de casas PON">
         <label>
           <span>Casas PON</span>
           <strong id="lbl-pon-density">${state.ponDensity}</strong>
         </label>
         <input type="range" id="rng-pon-density" min="1" max="128" value="${state.ponDensity}" />
       </div>
-      <div class="sims-slider-item" id="wrap-infected-count" title="Use la ruedita del mouse o arrastre para cambiar equipos infectados">
+      <div class="sims-slider-item" id="wrap-infected-count" title="Arrastre para cambiar la cantidad de equipos infectados">
         <label>
           <span>Infectadas</span>
           <strong id="lbl-infected-count">${state.infectedCount}</strong>

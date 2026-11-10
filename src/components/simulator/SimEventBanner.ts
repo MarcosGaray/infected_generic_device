@@ -21,6 +21,13 @@ export function updateSimEventBanner(
 
   const collapsedClass = bannerCollapsed ? 'is-collapsed' : '';
 
+  const sevColor = getInfectionSeverityRgb(Math.max(1, telemetry.infectedHouses)).css;
+  const barColor = telemetry.wanCongested
+    ? sevColor
+    : telemetry.statusLevel === 'mitigated'
+    ? '#10b981'
+    : '#38bdf8';
+
   const renderBannerContent = () => {
     bannerEl.className = `sims-event-banner ${toneClass} ${collapsedClass}`.trim();
     bannerEl.innerHTML = `
@@ -35,6 +42,12 @@ export function updateSimEventBanner(
       <div class="sims-event-body">
         <div class="sims-event-headline">${event.headline}</div>
         <div class="sims-event-subtext">${event.subtext}</div>
+        <div class="sims-event-metrics">
+          <span>↑ ${telemetry.totalUpstreamMbps} Mbps</span>
+          <span>Ping vecinos ${telemetry.neighborRttMs} ms</span>
+          <span>${telemetry.activeOnus} casas PON</span>
+          <span>Datos ilustrativos</span>
+        </div>
       </div>
     `;
     bannerEl
@@ -53,13 +66,6 @@ export function updateSimEventBanner(
   } else {
     renderBannerContent();
   }
-
-  const sevColor = getInfectionSeverityRgb(Math.max(1, telemetry.infectedHouses)).css;
-  const barColor = telemetry.wanCongested
-    ? sevColor
-    : telemetry.statusLevel === 'mitigated'
-    ? '#10b981'
-    : '#38bdf8';
 
   metersEl.className = `sims-mini-meters ${telemetry.wanCongested ? 'danger' : ''}`;
   metersEl.style.borderLeftColor = barColor;

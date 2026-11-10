@@ -58,17 +58,23 @@ export function renderPresentationSlide(
       </div>
 
       <footer class="presenter-bar">
-        <div style="display:flex; align-items:center; gap:10px;">
+        <div class="presenter-nav">
           <button class="nav-btn" id="btn-prev-slide" ${
             currentSlideIdx === 0 ? 'disabled style="opacity:0.4;"' : ''
-          }>
-            ◂ Anterior (PageUp)
+          } aria-label="Diapositiva anterior">
+            <span class="btn-arrow">◂</span>
+            <span class="btn-label">Anterior</span>
+            <span class="kbd-hint"> (PageUp)</span>
           </button>
-          <button class="nav-btn accent-yellow" id="btn-next-slide">
+          <button class="nav-btn accent-yellow" id="btn-next-slide" aria-label="${
+            currentSlideIdx === SLIDES.length - 1
+              ? 'Volver a la guía'
+              : 'Ir a la siguiente diapositiva'
+          }">
             ${
               currentSlideIdx === SLIDES.length - 1
-                ? 'Volver a la guía ▸'
-                : 'Siguiente (PageDown) ▸'
+                ? '<span class="btn-label">Volver a la guía</span><span class="btn-arrow">▸</span>'
+                : '<span class="btn-label">Siguiente</span><span class="kbd-hint"> (PageDown)</span><span class="btn-arrow">▸</span>'
             }
           </button>
         </div>
@@ -80,13 +86,16 @@ export function renderPresentationSlide(
               class="slide-dot ${idx === currentSlideIdx ? 'active' : ''}"
               data-jump-slide="${idx}"
               title="Diapositiva ${idx + 1}: ${s.title}"
+              aria-label="Ir a la diapositiva ${idx + 1}: ${s.title}"
+              ${idx === currentSlideIdx ? 'aria-current="true"' : ''}
             ></button>
           `
           ).join('')}
         </div>
 
-        <div style="font-size:12px; font-weight:700; color:#cbd5e1;">
-          DIAPOSITIVA ${currentSlideIdx + 1} DE ${SLIDES.length}
+        <div class="presenter-counter">
+          <span class="counter-long">DIAPOSITIVA ${currentSlideIdx + 1} DE ${SLIDES.length}</span>
+          <span class="counter-short">${currentSlideIdx + 1} / ${SLIDES.length}</span>
         </div>
       </footer>
     </div>
@@ -95,7 +104,12 @@ export function renderPresentationSlide(
   const viewportEl = stage.querySelector('#slide-viewport-box') as HTMLElement;
   const canvasEl = stage.querySelector('#slide-scaled-canvas') as HTMLElement;
 
+  const compactQuery = window.matchMedia('(max-width: 1024px)');
   const updateSlideScale = () => {
+    if (compactQuery.matches) {
+      canvasEl.style.transform = '';
+      return;
+    }
     const vw = viewportEl.clientWidth;
     const vh = viewportEl.clientHeight;
     if (vw > 0 && vh > 0) {
@@ -108,6 +122,7 @@ export function renderPresentationSlide(
     updateSlideScale();
   });
   resizeObserver.observe(viewportEl);
+  compactQuery.addEventListener('change', updateSlideScale);
   updateSlideScale();
 
   const mountEl = stage.querySelector('#slide-main-mount') as HTMLElement;
@@ -143,6 +158,7 @@ export function renderPresentationSlide(
     flowController,
     destroy() {
       resizeObserver.disconnect();
+      compactQuery.removeEventListener('change', updateSlideScale);
       flowController?.destroy();
     }
   };

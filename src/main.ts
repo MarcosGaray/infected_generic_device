@@ -43,6 +43,22 @@ function focusMainStage() {
 }
 
 /**
+ * Mantiene el botón de mostrar/ocultar el menú pegado al borde inferior real
+ * de la barra superior, que cambia de alto según el ancho de la pantalla.
+ */
+function syncRevealPosition() {
+  const appEl = document.getElementById('app');
+  const revealEl = appEl?.querySelector('.topbar-reveal') as HTMLElement | null;
+  const topBarEl = appEl?.querySelector('.topbar') as HTMLElement | null;
+  if (!appEl || !revealEl) return;
+  if (appEl.classList.contains('topbar-hidden') || !topBarEl) {
+    revealEl.style.top = '0px';
+    return;
+  }
+  revealEl.style.top = `${topBarEl.offsetHeight}px`;
+}
+
+/**
  * Directional View Transition with programmatic focus routing.
  */
 function navigateWithTransition(updateDOM: () => void, direction: 'forward' | 'backward') {
@@ -176,11 +192,13 @@ function renderApp() {
       isTopbarVisible = !isTopbarVisible;
       appEl.classList.toggle('topbar-hidden', !isTopbarVisible);
       reveal.setAttribute('aria-expanded', String(isTopbarVisible));
+      syncRevealPosition();
     });
     appEl.appendChild(reveal);
   }
 
   appEl.classList.toggle('topbar-hidden', currentMode === 'presentation' && !isTopbarVisible);
+  syncRevealPosition();
 
   const stage = document.createElement('main');
   stage.id = 'main-stage-view';
@@ -213,31 +231,10 @@ function renderApp() {
     });
   } else if (currentMode === 'flowchart') {
     const viewportWrap = document.createElement('div');
-    viewportWrap.className = 'slide-viewport theme-dark';
+    viewportWrap.className = 'slide-viewport theme-dark flowchart-standalone';
     stage.appendChild(viewportWrap);
 
-    const scaledBox = document.createElement('div');
-    scaledBox.style.width = '1600px';
-    scaledBox.style.height = '900px';
-    scaledBox.style.flexShrink = '0';
-    scaledBox.style.transformOrigin = 'center center';
-    scaledBox.style.padding = '20px 32px';
-    scaledBox.style.display = 'flex';
-    viewportWrap.appendChild(scaledBox);
-
-    const updateFlowScale = () => {
-      const vw = viewportWrap.clientWidth;
-      const vh = viewportWrap.clientHeight;
-      if (vw > 0 && vh > 0) {
-        const s = Math.min(vw / 1600, vh / 900);
-        scaledBox.style.transform = `scale(${s.toFixed(4)})`;
-      }
-    };
-    const ro = new ResizeObserver(updateFlowScale);
-    ro.observe(viewportWrap);
-    updateFlowScale();
-
-    standaloneFlowController = mountFlowchartView(scaledBox, {
+    standaloneFlowController = mountFlowchartView(viewportWrap, {
       isEmbedded: false,
       onBackToGuide: () => switchMode('hub')
     });
@@ -246,10 +243,11 @@ function renderApp() {
   }
 }
 
+window.addEventListener('resize', syncRevealPosition);
+
 window.addEventListener('keydown', (e) => {
   const activeTag = (document.activeElement as HTMLElement | null)?.tagName;
   if (activeTag === 'INPUT') return;
-
   if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
     e.preventDefault();
     if (currentMode !== 'hub') {
