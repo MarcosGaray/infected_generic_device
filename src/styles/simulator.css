@@ -1,0 +1,405 @@
+/* Simulador 3D GPON — UI Clara, Cartel Plegable y Panel Inferior Compacto */
+
+.sims-stage {
+  flex: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #4d8c2c;
+}
+
+.sims-canvas-host {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Cartel Superior de Acción / Suceso Plegable y Desplegable */
+.sims-event-banner {
+  position: absolute;
+  top: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(920px, 90vw);
+  background: rgba(15, 39, 71, 0.92);
+  border: 2px solid var(--brand-cyan);
+  border-bottom: 5px solid var(--brand-yellow);
+  border-radius: 18px;
+  padding: 12px 24px 14px;
+  text-align: center;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, 0.4);
+  z-index: 25;
+  pointer-events: auto;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease,
+    padding 0.25s ease,
+    width 0.25s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.sims-event-banner.is-collapsed {
+  width: fit-content;
+  max-width: 90vw;
+  padding: 6px 14px;
+  border-bottom-width: 2px;
+  border-radius: 999px;
+}
+
+.sims-event-banner.is-collapsed .sims-event-body {
+  display: none;
+}
+
+.sims-event-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.sims-event-banner.is-collapsed .sims-event-header-row {
+  margin-bottom: 0;
+}
+
+.sims-banner-toggle-btn {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--brand-white);
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+  padding: 3px 11px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.sims-banner-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.26);
+  border-color: var(--brand-white);
+}
+
+.sims-event-banner.status-danger {
+  background: rgba(45, 10, 10, 0.92);
+  border-color: var(--brand-orange);
+  border-bottom-color: var(--brand-orange);
+}
+
+.sims-event-banner.status-warning {
+  background: rgba(45, 32, 6, 0.92);
+  border-color: var(--brand-yellow);
+  border-bottom-color: var(--brand-yellow);
+}
+
+.sims-event-banner.status-success {
+  background: rgba(6, 42, 28, 0.92);
+  border-color: #10b981;
+  border-bottom-color: #10b981;
+}
+
+.sims-event-banner.animating {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-10px) scale(0.98);
+}
+
+.sims-event-step-pill {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 999px;
+  background: var(--brand-yellow);
+  color: var(--brand-navy);
+}
+
+.sims-event-banner.status-danger .sims-event-step-pill {
+  background: var(--brand-orange);
+  color: var(--brand-white);
+}
+
+.sims-event-banner.status-success .sims-event-step-pill {
+  background: #10b981;
+  color: #042f1e;
+}
+
+.sims-event-headline {
+  font-size: clamp(20px, 2.1vw, 31px);
+  font-weight: 900;
+  color: var(--brand-white);
+  line-height: 1.15;
+  letter-spacing: -0.3px;
+}
+
+.sims-event-subtext {
+  font-size: clamp(14px, 1.2vw, 17.5px);
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-top: 4px;
+}
+
+/* Indicador compacto superior derecho (Estado de la Fibra GPON) */
+.sims-mini-meters {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--brand-navy);
+  border-radius: 16px;
+  padding: 10px 16px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+  border-left: 6px solid var(--brand-cyan);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 205px;
+}
+
+.sims-mini-meters.danger {
+  border-left-color: var(--brand-orange);
+}
+
+.sims-meter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.sims-meter-bar {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.sims-meter-fill {
+  height: 100%;
+  background: var(--brand-cyan);
+  border-radius: 99px;
+  transition: width 0.4s ease, background-color 0.4s ease;
+}
+
+/* Dock Inferior Compacto a lo largo (máximo 2 filas en altura, sin espacio blanco sobrante, mismo tamaño de botones) */
+.sims-bottom-dock {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  max-width: 98vw;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--brand-navy);
+  border: 2px solid var(--brand-cyan);
+  border-radius: 18px;
+  padding: 7px 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 16px 38px rgba(15, 39, 71, 0.32);
+  backdrop-filter: blur(12px);
+  z-index: 25;
+}
+
+.sims-dock-section {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.sims-step-counter {
+  font-size: 12.5px;
+  font-weight: 900;
+  color: #0f2747;
+  padding: 0 2px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.sims-dock-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.sims-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.sims-btn {
+  background: #f1f5f9;
+  color: var(--brand-navy);
+  border: 2px solid #cbd5e1;
+  padding: 9px 14px;
+  border-radius: 14px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.sims-btn:hover {
+  transform: translateY(-2px);
+  border-color: var(--brand-cyan);
+  background: #e0f2fe;
+}
+
+.sims-btn.primary {
+  background: var(--brand-navy);
+  border-color: var(--brand-navy);
+  color: var(--brand-white);
+}
+
+.sims-btn.active-danger {
+  background: var(--brand-orange);
+  border-color: var(--brand-orange);
+  color: var(--brand-white);
+}
+
+.sims-btn.active-warning {
+  background: var(--brand-yellow);
+  border-color: #d97706;
+  color: var(--brand-navy);
+}
+
+.sims-btn.active-success {
+  background: #10b981;
+  border-color: #059669;
+  color: var(--brand-white);
+}
+
+.sims-camera-pills {
+  display: flex;
+  gap: 4px;
+  margin-left: 4px;
+}
+
+.sims-cam-btn {
+  background: #e2e8f0;
+  color: var(--brand-navy);
+  border: 1.5px solid transparent;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.sims-cam-btn.active {
+  background: var(--brand-cyan);
+  color: var(--brand-navy);
+  border-color: var(--brand-navy);
+}
+
+.sims-sliders-compact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8fafc;
+  padding: 4px 10px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+}
+
+.sims-slider-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 125px;
+}
+
+.sims-slider-item label {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--brand-navy);
+  display: flex;
+  justify-content: space-between;
+}
+
+.sims-slider-item input[type='range'] {
+  width: 100%;
+  accent-color: var(--brand-navy);
+  cursor: pointer;
+}
+
+.sims-disclaimer {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 24;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(5, 11, 22, 0.65);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  padding: 4px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+
+@media (max-width: 1100px) {
+  .sims-bottom-dock {
+    flex-wrap: wrap;
+    max-width: 96vw;
+    gap: 6px;
+  }
+
+  .sims-camera-pills {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 700px) {
+  .sims-event-banner {
+    top: 8px;
+    width: 94vw;
+    padding: 10px 14px;
+  }
+
+  .sims-mini-meters {
+    display: none;
+  }
+
+  .sims-bottom-dock {
+    bottom: 6px;
+    padding: 6px 8px;
+  }
+
+  .sims-sliders-compact {
+    display: none;
+  }
+
+  .sims-btn {
+    padding: 7px 10px;
+    font-size: 12px;
+  }
+
+  .sims-disclaimer {
+    display: none;
+  }
+}

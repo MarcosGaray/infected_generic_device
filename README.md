@@ -37,15 +37,6 @@ Opciones:
 - **Recomendado:** `npm run preview` y abrir la URL HTTP que muestra la terminal.
 - **Archivo único:** `npm run build:offline` y abrir `dist/offline.html`. Ese archivo tiene CSS, JavaScript, fuente y favicon embebidos.
 
-## Deploy en GitHub Pages
-
-1. Crear un repositorio público en GitHub.
-2. Subir el proyecto a la rama `main`.
-3. En **Settings → Pages → Build and deployment**, elegir **GitHub Actions**.
-4. El workflow `.github/workflows/deploy.yml` compila y publica `dist/` automáticamente.
-
-El proyecto usa `base: './'` en Vite para funcionar tanto en la raíz como en una subruta de GitHub Pages.
-
 ## Estructura
 
 ```text

@@ -1,0 +1,108 @@
+/* Paleta neutra para una guía educativa de redes GPON */
+:root {
+  --brand-navy: #0f2747;
+  --brand-navy-dark: #081326;
+  --brand-navy-deep: #050b16;
+  --brand-cyan: #38bdf8;
+  --brand-cyan-dark: #0f2747;
+  --brand-cyan-soft: rgba(56, 189, 248, 0.16);
+  --brand-yellow: #fbbf24;
+  --brand-yellow-soft: rgba(251, 191, 36, 0.18);
+  --brand-orange: #fb7185;
+  --brand-orange-soft: rgba(251, 113, 133, 0.16);
+  --brand-black: #000000;
+  --brand-green: #10b981;
+  --brand-white: #ffffff;
+
+  --slide-light-bg: #eef6fc;
+  --slide-card-white: #ffffff;
+  --slide-text-dark: #0f172a;
+  --slide-text-muted: #1e293b;
+
+  --font-sans: 'Raleway', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Raleway', Georgia, serif;
+  --font-mono: 'Consolas', 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--brand-navy-deep);
+  color: var(--brand-white);
+  font-family: var(--font-sans);
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Transiciones direccionales de vista */
+@keyframes slide-to-left {
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes slide-from-right {
+  from {
+    transform: translateX(100%);
+  }
+}
+@keyframes slide-to-right {
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes slide-from-left {
+  from {
+    transform: translateX(-100%);
+  }
+}
+
+::view-transition-group(root) {
+  animation: 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+  }
+}
+
+html:active-view-transition-type(forward)::view-transition-old(root) {
+  animation-name: slide-to-left;
+}
+html:active-view-transition-type(forward)::view-transition-new(root) {
+  animation-name: slide-from-right;
+}
+html:active-view-transition-type(backward)::view-transition-old(root) {
+  animation-name: slide-to-right;
+}
+html:active-view-transition-type(backward)::view-transition-new(root) {
+  animation-name: slide-from-left;
+}
+
+#app {
+  width: 100vw;
+  width: 100dvw;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.blackout-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--brand-black);
+  z-index: 9999;
+  display: none;
+}
+
+.blackout-screen.visible {
+  display: block;
+}

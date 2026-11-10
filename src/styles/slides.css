@@ -1,0 +1,542 @@
+/* Estilos de diapositivas — escala uniforme 1600x900 */
+
+.presentation-shell {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  min-height: 0;
+}
+
+.slide-viewport {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.slide-viewport.theme-dark {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(56, 189, 248, 0.18), transparent 34%),
+    radial-gradient(circle at 88% 85%, rgba(251, 191, 36, 0.12), transparent 34%),
+    linear-gradient(135deg, #050b16 0%, #0f2747 55%, #081326 100%);
+  color: var(--brand-white);
+}
+
+.slide-viewport.theme-light {
+  background:
+    radial-gradient(circle at 85% 10%, rgba(56, 189, 248, 0.22), transparent 32%),
+    radial-gradient(circle at 12% 90%, rgba(251, 191, 36, 0.10), transparent 34%),
+    linear-gradient(135deg, #081326 0%, #0f2747 55%, #0b1f3a 100%);
+  color: var(--brand-white);
+}
+
+.slide-canvas {
+  width: 1600px;
+  height: 900px;
+  flex-shrink: 0;
+  transform-origin: center center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 26px 56px 20px 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-canvas.full-bleed {
+  padding: 0;
+}
+
+.slide-canvas.full-bleed .slide-main-area {
+  padding: 0;
+}
+
+.slide-canvas.theme-dark {
+  color: var(--brand-white);
+}
+
+.slide-canvas.theme-light {
+  color: var(--brand-white);
+}
+
+/* Barra superior interna de la diapositiva */
+.slide-top-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.28);
+  flex-shrink: 0;
+}
+
+.theme-light .slide-top-strip {
+  border-bottom-color: rgba(56, 189, 248, 0.28);
+}
+
+.slide-brand-mark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.slide-brand-text {
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--brand-cyan);
+}
+
+.theme-light .slide-brand-text {
+  color: var(--brand-cyan);
+}
+
+.slide-module-pill {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 6px;
+}
+
+.theme-dark .slide-module-pill {
+  border: 1.5px solid var(--brand-yellow);
+  color: var(--brand-yellow);
+  background: rgba(251, 191, 36, 0.08);
+}
+
+.theme-light .slide-module-pill {
+  border: 1.5px solid rgba(56, 189, 248, 0.55);
+  color: var(--brand-white);
+  background: rgba(56, 189, 248, 0.12);
+}
+
+/* Cuerpo central de la diapositiva */
+.slide-main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 0;
+  padding: 12px 0;
+}
+
+/* Plantilla 1: portada oscura con ilustración genérica */
+.dark-hero-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.75fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.yellow-tag-solid {
+  display: inline-block;
+  background: var(--brand-yellow);
+  color: var(--brand-navy);
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  padding: 6px 16px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.hero-big-title {
+  font-size: 62px;
+  font-weight: 900;
+  color: var(--brand-white);
+  line-height: 1.08;
+  margin-bottom: 14px;
+}
+
+.hero-Accent-subtitle {
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--brand-cyan);
+  margin-bottom: 22px;
+  line-height: 1.35;
+}
+
+.dark-glass-box {
+  background: rgba(15, 39, 71, 0.65);
+  border-left: 6px solid var(--brand-cyan);
+  border-radius: 12px;
+  padding: 22px 28px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
+}
+
+.dark-glass-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dark-glass-list li {
+  font-size: 19px;
+  line-height: 1.45;
+  color: var(--brand-white);
+  font-weight: 500;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.dark-glass-list li::before {
+  content: '•';
+  color: var(--brand-cyan);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.hero-visual-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-visual-svg {
+  width: 100%;
+  max-height: 430px;
+  filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.55));
+}
+
+/* Plantilla 2: contenido claro con tarjetas blancas */
+.light-header-block {
+  margin-bottom: 20px;
+}
+
+.light-main-title {
+  font-size: 46px;
+  font-weight: 900;
+  color: var(--brand-white);
+  line-height: 1.15;
+}
+
+.light-main-lead {
+  font-size: 19px;
+  color: #e2e8f0;
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.light-cards-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.light-cards-single {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.white-card {
+  background: var(--slide-card-white);
+  border-radius: 14px;
+  padding: 24px 28px;
+  border-left: 7px solid var(--brand-cyan);
+  box-shadow: 0 12px 28px rgba(15, 39, 71, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.white-card.border-navy {
+  border-left-color: var(--brand-navy);
+}
+
+.white-card.border-orange {
+  border-left-color: var(--brand-orange);
+}
+
+.white-card.border-yellow {
+  border-left-color: var(--brand-yellow);
+}
+
+.white-card h3 {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--brand-cyan-dark);
+}
+
+.white-card.border-navy h3 {
+  color: var(--brand-navy);
+}
+
+.white-card.border-orange h3 {
+  color: #be123c;
+}
+
+.white-card ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.white-card li {
+  font-size: 17.5px;
+  line-height: 1.45;
+  color: var(--slide-text-dark);
+  font-weight: 500;
+  padding-left: 18px;
+  position: relative;
+}
+
+.white-card li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--brand-cyan-dark);
+  font-weight: 900;
+}
+
+.white-card li strong {
+  color: var(--brand-navy);
+  font-weight: 800;
+}
+
+/* Barra inferior de regla de oro / conclusión */
+.golden-rule-banner {
+  margin-top: 18px;
+  background: var(--slide-card-white);
+  border-left: 6px solid var(--brand-cyan);
+  border-radius: 12px;
+  padding: 15px 24px;
+  font-size: 17.5px;
+  font-weight: 700;
+  color: var(--brand-navy);
+  box-shadow: 0 8px 22px rgba(15, 39, 71, 0.07);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.golden-rule-banner.orange {
+  border-left-color: var(--brand-orange);
+}
+
+/* Tabla comparativa */
+.clean-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 28px rgba(15, 39, 71, 0.09);
+  background: var(--slide-card-white);
+}
+
+.clean-table thead {
+  background: var(--brand-navy);
+  color: var(--brand-white);
+}
+
+.clean-table th {
+  padding: 16px 22px;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.clean-table td {
+  padding: 15px 22px;
+  font-size: 16px;
+  color: var(--slide-text-dark);
+  border-bottom: 1px solid rgba(15, 39, 71, 0.08);
+  font-weight: 500;
+}
+
+.clean-table tbody tr:nth-child(even) {
+  background: #f1f5f9;
+}
+
+.clean-table td strong {
+  color: var(--brand-navy);
+  font-weight: 800;
+}
+
+.text-danger {
+  color: #be123c;
+  font-weight: 800;
+}
+
+.text-ok {
+  color: #047857;
+  font-weight: 800;
+}
+
+.text-navy {
+  color: var(--brand-navy);
+  font-weight: 800;
+}
+
+.text-amber {
+  color: #b45309;
+  font-weight: 800;
+}
+
+/* Mock genérico del panel de monitoreo */
+.monitor-mock {
+  border-left-color: var(--brand-orange);
+  gap: 8px;
+}
+
+.monitor-mock-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--brand-navy);
+}
+
+.monitor-status-pill {
+  background: rgba(251, 113, 133, 0.14);
+  border: 1px solid rgba(251, 113, 133, 0.45);
+  color: #be123c;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.monitor-bars {
+  height: 220px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 46px;
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.monitor-bar-group {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--slide-text-muted);
+}
+
+.monitor-bar-group strong {
+  font-size: 13px;
+  font-weight: 900;
+  color: var(--brand-navy);
+}
+
+.monitor-bar-wrap {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.monitor-bar {
+  width: 70px;
+  border-radius: 8px 8px 0 0;
+  min-height: 6px;
+}
+
+.monitor-bar-down {
+  background: var(--brand-cyan);
+}
+
+.monitor-bar-up {
+  background: var(--brand-orange);
+}
+
+.monitor-mock figcaption {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--brand-navy);
+  text-align: center;
+}
+
+/* Pie interno de diapositiva */
+.slide-bottom-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(56, 189, 248, 0.25);
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.theme-dark .slide-bottom-strip {
+  color: #e2e8f0;
+}
+
+.theme-light .slide-bottom-strip {
+  border-top-color: rgba(56, 189, 248, 0.28);
+  color: #e2e8f0;
+}
+
+.theme-dark .footer-slogan {
+  color: var(--brand-yellow);
+}
+
+.theme-light .footer-slogan {
+  color: var(--brand-yellow);
+}
+
+/* Barra de control del presentador */
+.presenter-bar {
+  height: 48px;
+  min-height: 48px;
+  background: var(--brand-navy-dark);
+  border-top: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.slide-dots {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.slide-dot {
+  width: 24px;
+  height: 7px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.24);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.slide-dot.active {
+  background: var(--brand-yellow);
+  transform: scaleX(1.2);
+}
