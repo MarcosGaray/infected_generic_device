@@ -1,5 +1,5 @@
 {
-  "name": "gpon-infected-onu-simulator",
+  "name": "infected-generic-device",
   "version": "1.0.0",
   "private": true,
   "description": "Simulador 3D educativo y guía genérica sobre redes internas infectadas en GPON.",

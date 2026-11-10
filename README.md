@@ -66,4 +66,9 @@ scripts/             Build offline opcional
 - [Three.js](https://threejs.org/) — licencia MIT.
 - Raleway — SIL Open Font License.
 - [Vite](https://vite.dev/) y [TypeScript](https://www.typescriptlang.org/).
-# infected_generic_device
+
+## Despliegue
+
+Sitio publicado en GitHub Pages: <https://marcosgaray.github.io/infected_generic_device/>
+
+El workflow `.github/workflows/deploy.yml` compila con Vite y publica `dist/` en cada push a `main`.
