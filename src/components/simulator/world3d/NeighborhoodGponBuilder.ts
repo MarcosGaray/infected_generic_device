@@ -333,14 +333,9 @@ export function buildNeighborhoodGpon(
   const neighborhoodTrees: Array<[number, number, number]> = [
     [-18.5, -12.0, 1.15],
     [-18.0, -22.5, 1.25],
-    [13.0, 3.2, 1.12],
-    [18.8, 3.5, 1.2],
-    [22.5, -2.5, 1.18],
     [33.8, -6.5, 1.3],
     [33.5, -15.5, 1.22],
-    [24.5, -17.5, 1.15],
-    [12.0, -7.2, 0.95],
-    [21.0, -11.5, 1.05]
+    [24.5, -17.5, 1.15]
   ];
   neighborhoodTrees.forEach(([tx, tz, sc]) => {
     scene.add(createLushTree(tx, tz, sc));

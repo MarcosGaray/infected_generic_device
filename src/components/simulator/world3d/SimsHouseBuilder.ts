@@ -439,10 +439,6 @@ export function buildSimsCutawayHouse(scene: THREE.Scene): SimsHouseRefs {
   // Lush deciduous trees framing the property
   const heroTrees: Array<[number, number, number]> = [
     [-11.8, -2.5, 1.15],
-    [-10.5, -7.2, 1.28],
-    [-2.5, -8.0, 1.22],
-    [6.8, -7.8, 1.18],
-    [10.2, 2.8, 1.08],
     [-13.2, 4.8, 1.05]
   ];
   heroTrees.forEach(([tx, tz, sc]) => {
